@@ -2,13 +2,14 @@ namespace ConsoleApp1.Containers;
 
 public class Ship
 {
-    private List<Container> Containers;
+    public List<Container> Containers;
     private double MaxSpeed;
     private int MaxContainersAmount;
     private double MaxLoadAmount;
 
     public Ship(double maxSpeed, int maxContainersAmount, double maxLoadAmount)
     {
+        Containers = new List<Container>();
         MaxSpeed = maxSpeed;
         MaxContainersAmount = maxContainersAmount;
         MaxLoadAmount = maxLoadAmount;
@@ -31,11 +32,11 @@ public class Ship
 
     public void ReplaceContainer(String SerialNumber, Container newContainer)
     {
-        foreach (Container originalContainer in Containers)
+        for (int i = 0; i < Containers.Count-1; i++)
         {
-            if (originalContainer.SerialNumber == SerialNumber)
+            if (Containers[i].SerialNumber == SerialNumber)
             {
-                Containers.Remove(originalContainer);
+                Containers.Remove(Containers[i]);
                 Containers.Add(newContainer);
             }
         }
