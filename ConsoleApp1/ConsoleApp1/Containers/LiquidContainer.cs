@@ -5,13 +5,15 @@ namespace ConsoleApp1.Containers;
 
 public class LiquidContainer : Container, IHazardNotifier
 {
-    private bool isDangerous;
-    private int initialMaxLoad;
+    private bool _isDangerous;
+    private int _initialMaxLoad;
     
     public LiquidContainer(int cargoWeight, int height, int overallWeight, int depth, int maxLoad) : base(cargoWeight, height, overallWeight, depth, maxLoad)
     {
-        this.serialNumber = "CON-L-" + Container.NUMBER;
+        this.SerialNumber = "CON-L-" + Container.NUMBER;
         Container.NUMBER++;
+
+        _initialMaxLoad = maxLoad;
     }
 
     public override void Unload()
@@ -35,24 +37,24 @@ public class LiquidContainer : Container, IHazardNotifier
 
     public void Alert()
     {
-        Console.WriteLine("Dangerous action");
+        Console.WriteLine("Dangerous action, container no. " + this.SerialNumber);   
     }
 
     public void Load(int cargoWeight, bool isDangerous)
     {
-        this.isDangerous = isDangerous;
+        this._isDangerous = isDangerous;
         Load(cargoWeight);
     }
 
     private void ChangeMaxLoad()
     {
-        if (isDangerous)
+        if (_isDangerous)
         {
-            maxLoad = initialMaxLoad / 2;
+            MaxLoad = _initialMaxLoad / 2;
         }
         else
         {
-            maxLoad = (int) (initialMaxLoad * 0.9);
+            MaxLoad = (int) (_initialMaxLoad * 0.9);
         }
     }
 }
